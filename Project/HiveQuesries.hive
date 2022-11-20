@@ -1,0 +1,59 @@
+episodeIV_dialouges:---
+show databases;
+
+use hiveproject;
+
+CREATE table newtable (name STRING, lines STRING)
+    > ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+LOAD DATA LOCAL INPATH 'episodeIV_dialouges.txt' INTO TABLE newtable;
+
+CREATE TABLE inside_table AS
+    > SELECT name, COUNT(lines) AS lines_count FROM newtable
+    > GROUP BY name
+    > ORDER BY lines_count DESC;
+
+SELECT * FROM inside_table;
+
+INSERT OVERWRITE DIRECTORY 'Ishita/hiveproject.hive'
+    > SELECT * from hiveproject.inside_tableIV;
+
+
+episodeV_dialouges:--
+
+use hiveproject;
+
+CREATE table newtableV (name STRING, lines STRING)
+    > ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+
+LOAD DATA LOCAL INPATH 'episodeV_dialouges.txt' INTO TABLE newtableV;
+
+CREATE TABLE inside_tableV AS
+    > SELECT name, COUNT(lines) AS lines_count FROM newtableV
+    > GROUP BY name
+    > ORDER BY lines_count DESC;
+
+SELECT * FROM inside_tableV;
+
+INSERT OVERWRITE DIRECTORY 'Ishita/hiveproject.hive'
+    > SELECT * from hiveproject.inside_tableV;
+
+
+episodeVI_dialouges:--
+
+use hiveproject;
+
+CREATE table newtableVI (name STRING, lines STRING)
+    > ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+
+LOAD DATA LOCAL INPATH 'episodeVI_dialouges.txt' INTO TABLE newtableVI;
+
+CREATE TABLE inside_tableVI AS
+    > SELECT name, COUNT(lines) AS lines_count FROM newtableVI
+    > GROUP BY name
+    > ORDER BY lines_count DESC;
+
+SELECT * FROM inside_tableVI;
+
+INSERT OVERWRITE DIRECTORY 'Ishita/hiveproject.hive'
+    > SELECT * from hiveproject.inside_tableVI;
+
